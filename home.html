@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerAI - AI-Powered Career Guidance</title>
+    <link rel="icon" type="image/x-icon" href="logo1.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --info: #4895ef;
+            --accent: #560bad;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: clamp(18px, 4vw, 24px);
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 20px;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.2s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+            z-index: 200;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: clamp(30px, 5vw, 60px) 0;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(58, 12, 163, 0.1));
+            border-radius: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+            height: 560px;
+        }
+
+        .hero-content {
+            flex: 1 1 400px;
+            padding-right: clamp(0px, 3vw, 30px);
+        }
+
+        .hero-image {
+            flex: 1 1 400px;
+            text-align: center;
+            min-width: 280px;
+            margin: 30px;
+            padding: 16px;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 48px);
+            margin-bottom: clamp(10px, 3vw, 20px);
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 18px);
+            margin-bottom: clamp(20px, 5vw, 30px);
+            color: var(--dark);
+        }
+
+        /* Features section */
+        .features {
+            padding: clamp(30px, 5vw, 60px) 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: clamp(30px, 5vw, 50px);
+        }
+
+        .section-title h2 {
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: clamp(14px, 2vw, 18px);
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: clamp(30px, 5vw, 40px);
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: clamp(18px, 3vw, 24px);
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Careers section */
+        .careers {
+            padding: clamp(30px, 5vw, 60px) 0;
+            background-color: white;
+        }
+
+        .career-tabs {
+            display: flex;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #dee2e6;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            padding-bottom: 5px;
+        }
+
+        .career-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .career-tabs::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+
+        .career-tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            white-space: nowrap;
+            color: #6c757d;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        .career-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .career-content {
+            display: none;
+        }
+
+        .career-content.active {
+            display: block;
+        }
+
+        .career-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .info-card {
+            flex: 1 1 280px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            height: 100%;
+        }
+
+        .info-card h3 {
+            font-size: clamp(18px, 2vw, 20px);
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .info-card ul {
+            list-style-type: none;
+        }
+
+        .info-card li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .info-card li i {
+            color: var(--primary);
+            margin-right: 10px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Consultation section */
+        .consultation {
+            padding: clamp(30px, 5vw, 60px) 0;
+        }
+
+        .consultation-container {
+            display: flex;
+            align-items: stretch;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .video-container {
+            flex: 1 1 400px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 350px;
+        }
+
+        .video-placeholder {
+            background-color: #ced4da;
+            width: 100%;
+            height: 250px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6c757d;
+            font-size: clamp(18px, 4vw, 24px);
+        }
+
+        .video-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .video-controls button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .video-controls button:hover {
+            background-color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .chat-container {
+            flex: 1 1 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            min-height: 350px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+
+        .message-content {
+            padding: 12px 15px;
+            border-radius: 18px;
+            font-size: clamp(12px, 2vw, 14px);
+            line-height: 1.5;
+        }
+
+        .incoming {
+            align-self: flex-start;
+        }
+
+        .incoming .message-content {
+            background-color: #e9ecef;
+            color: var(--dark);
+            border-bottom-left-radius: 4px;
+        }
+
+        .outgoing {
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .outgoing .message-content {
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .chat-input button {
+            padding: 12px 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .chat-input button:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Roadmap section */
+        .roadmap {
+            padding: clamp(30px, 5vw, 60px) 0;
+            background-color: #f8f9fa;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            top: 15px;
+            right: -14px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -14px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            font-size: clamp(16px, 2vw, 18px);
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: clamp(30px, 5vw, 40px) 0;
+            width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(20px, 5vw, 40px);
+        }
+
+        .footer-col {
+            flex: 1 1 200px;
+        }
+
+        .footer-col h3 {
+            font-size: clamp(18px, 2vw, 20px);
+            margin-bottom: 20px;
+            color: var(--info);
+        }
+
+        .footer-col ul {
+            list-style-type: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: clamp(20px, 5vw, 40px);
+            text-align: center;
+            border-top: 1px solid #343a40;
+            padding-top: 20px;
+            color: #6c757d;
+        }
+
+        /* Video showcase */
+        .video-showcase {
+            padding: clamp(30px, 5vw, 60px) 0;
+            background-color: #f8f9fa;
+        }
+
+        .video-container-simple {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background-color: #000;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-wrapper video.active {
+            opacity: 1;
+        }
+
+        .video-controls-simple {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            gap: 20px;
+            background-color: white;
+            flex-wrap: wrap;
+        }
+
+        .video-controls-simple button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .video-controls-simple button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .video-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .video-info h3 {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .video-info p {
+            color: #6c757d;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        /* Floating elements */
+        .floating-logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            background-color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .floating-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .floating-logo i {
+            font-size: 30px;
+            color: var(--primary);
+        }
+
+        .get-started-btn {
+            background-color: var(--primary);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .get-started-btn:hover {
+            background-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        /* Messaging Service Styles */
+        .messaging-service {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            z-index: 1000;
+            display: none; /* Initially hidden */
+        }
+
+        .messaging-header {
+            padding: 15px;
+            background-color: var(--primary);
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .messaging-body {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .messaging-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e1e4e8;
+        }
+
+        .message-input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .message-input textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e1e4e8;
+            border-radius: 20px;
+            resize: none;
+            height: 40px;
+        }
+
+        .send-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .send-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Media Queries for better responsiveness */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .hero-image {
+                max-width: 100%;
+            }
+
+            .consultation-container {
+                flex-direction: column;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 15px;
+            }
+
+            .timeline-item:nth-child(even)::after {
+                left: 15px;
+            }
+
+            .feature-card {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .navbar {
+                padding: 10px 0;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.95);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 99;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: clamp(24px, 6vw, 36px);
+            }
+
+            .hero p {
+                font-size: clamp(14px, 3vw, 16px);
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .section-title h2 {
+                font-size: clamp(22px, 5vw, 30px);
+            }
+
+            .feature-icon {
+                font-size: 32px;
+            }
+
+            .feature-card h3 {
+                font-size: 20px;
+            }
+
+            .feature-card p {
+                font-size: 14px;
+            }
+
+            .chat-container {
+                height: 350px;
+            }
+
+            .message {
+                max-width: 85%;
+            }
+
+            .floating-logo {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .floating-logo i {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                flex: 1 1 100%;
+            }
+
+            .message {
+                max-width: 90%;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+                padding-right: 15px;
+            }
+
+            .timeline::after {
+                left: 21px;
+            }
+
+            .timeline-item::after {
+                left: 10px;
+                width: 16px;
+                height: 16px;
+            }
+
+            .timeline-item:nth-child(even)::after {
+                left: 10px;
+            }
+
+            .footer-col {
+                flex: 1 1 100%;
+            }
+
+            .video-placeholder {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .navbar {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .logo {
+                margin-right: 0;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .menu-toggle {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+            }
+
+            .message {
+                max-width: 95%;
+            }
+
+            .hero {
+                padding: 30px 0;
+            }
+
+            .get-started-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .menu-toggle,
+            .video-controls,
+            .chat-input,
+            .video-controls-simple,
+            .floating-logo {
+                display: none !important;
+            }
+
+            body {
+                padding-bottom: 0;
+            }
+
+            footer {
+                position: relative;
+            }
+
+            .features-grid,
+            .career-info,
+            .consultation-container,
+            .footer-container {
+                display: block;
+            }
+
+            .feature-card,
+            .info-card,
+            .video-container,
+            .chat-container,
+            .footer-col {
+                margin-bottom: 20px;
+                page-break-inside: avoid;
+            }
+
+            .timeline::after {
+                display: none;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding: 0 0 20px 0;
+            }
+
+            .timeline-item::after {
+                display: none;
+            }
+        }
+
+        /* typing style */
+        .typing {
+            display: flex;
+            align-items: center;
+        }
+
+        .typing #text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 30px;
+            background-color: #333;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>CareerAI</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#careers">Career Paths</a></li>
+                    <li><a href="#consultation">AI Consultation</a></li>
+                    <li><a href="#roadmap">Learning Roadmaps</a></li>
+                    <li><a class="get-started-btn" href="login.html">Start Your Journey</a></li>
+                </ul>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Unlock Your Ideal Tech Career Path</h1>
+                <div class="typing">
+                    <span id="text"></span><span class="cursor"></span>
+                </div>
+                <p>Explore your perfect tech career with personalized AI consultations, in-depth insights, and customized learning roadmaps</p>
+                <a class="btn" href="login.html" style="text-decoration: none;">Schedule Your AI Consultation</a>
+            </div>
+            <div class="hero-image">
+                <img src="photo.png" alt="AI Career Guidance">
+            </div>
+        </div>
+    </section>
+
+    <section class="video-showcase" id="video-showcase">
+        <div class="container">
+            <div class="section-title">
+                <h2>See CareerAI in Action</h2>
+                <p>Watch how our platform helps professionals navigate their tech career journey</p>
+            </div>
+
+            <div class="video-container-simple">
+                <div class="video-wrapper">
+                    <video class="active" src="vid1.mp4" autoplay muted></video>
+                    <video src="vid3.mp4" autoplay muted></video>
+                    <video src="vid2.mp4" autoplay muted></video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+                <p>Discover how our AI-powered platform can help you navigate your tech career journey</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Live AI Consultations</h3>
+                    <p>Connect with our AI career advisor through live video consultations to discuss your skills,
+                        interests, and career goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Personalized Roadmaps</h3>
+                    <p>Receive customized learning paths tailored to your career choice with step-by-step guidance on
+                        acquiring necessary skills.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Market Trends</h3>
+                    <p>Stay informed about the latest job market trends, demand forecasts, and salary expectations for
+                        various tech roles.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Career Insights</h3>
+                    <p>Explore detailed information about different tech careers including required skills, daily
+                        responsibilities, and growth opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Skill Analysis</h3>
+                    <p>Identify your strengths and skill gaps with our comprehensive assessment to determine your
+                        optimal career path.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Resource Recommendations</h3>
+                    <p>Get curated learning resources including courses, tutorials, and practice projects relevant to
+                        your chosen career path.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="careers" id="careers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Tech Careers</h2>
+                <p>In-depth insights into popular tech career paths to help you make an informed decision</p>
+            </div>
+
+            <div class="career-tabs">
+                <div class="career-tab active" data-tab="software">Software Development</div>
+                <div class="career-tab" data-tab="data-science">Data Science</div>
+                <div class ="career-tab" data-tab="ml">Machine Learning</div>
+                <div class="career-tab" data-tab="devops">DevOps</div>
+            </div>
+
+            <div class="career-content active" id="software">
+                <div class="career-info">
+                    <div class="info-card">
+                        <h3>Required Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Programming languages (JavaScript, Python, Java)</li>
+                            <li><i class="fas fa-check-circle"></i> Web development frameworks</li>
+                            <li><i class="fas fa-check-circle"></i> Version control (Git)</li>
+                            <li><i class="fas fa-check-circle"></i> Database management</li>
+                            <li><i class="fas fa-check-circle"></i> Problem-solving & algorithms</li>
+                            <li><i class="fas fa-check-circle"></i> Software architecture</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Job Opportunities</h3>
+                        <ul>
+                            <li><i class="fas fa-briefcase"></i> Frontend Developer</li>
+                            <li><i class="fas fa-briefcase"></i> Backend Developer</li>
+                            <li><i class="fas fa-briefcase"></i> Full Stack Developer</li>
+                            <li><i class="fas fa-briefcase"></i> Mobile App Developer</li>
+                            <li><i class="fas fa-briefcase"></i> Software Engineer</li>
+                            <li><i class="fas fa-briefcase"></i> Lead Developer</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Market Trends</h3>
+                        <ul>
+                            <li><i class="fas fa-chart-pie"></i> High demand across industries</li>
+                            <li><i class="fas fa-chart-pie"></i> Average salary: $95,000 - $140,000</li>
+                            <li><i class="fas fa-chart-pie"></i> 22% growth projected by 2030</li>
+                            <li><i class="fas fa-chart-pie"></i> Remote work opportunities increasing</li>
+                            <li><i class="fas fa-chart-pie"></i> Growing demand for cloud expertise</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="career-content" id="data-science">
+                <div class="career-info">
+                    <div class="info-card">
+                        <h3>Required Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Python, R, SQL</li>
+                            <li><i class="fas fa-check-circle"></i> Machine learning algorithms</li>
+                            <li><i class="fas fa-check-circle"></i> Data visualization</li>
+                            <li><i class="fas fa-check-circle"></i> Deep learning concepts</li>
+                            <li><i class="fas fa-check-circle"></i> Big data technologies</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Job Opportunities</h3>
+                        <ul>
+                            <li><i class="fas fa-briefcase"></i> Data Scientist</li>
+                            <li><i class="fas fa-briefcase"></i> AI Engineer</li>
+                            <li><i class="fas fa-briefcase"></i> Machine Learning Engineer</li>
+                            <li><i class="fas fa-briefcase"></i> Research Scientist</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Market Trends</h3>
+                        <ul>
+                            <li><i class="fas fa-chart-pie"></i> AI-driven applications on the rise</li>
+                            <li><i class="fas fa-chart-pie"></i> Average salary: $100,000 - $150,000</li>
+                            <li><i class="fas fa-chart-pie"></i> 35% growth projected by 2030</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="career-content" id="ml">
+                <div class="career-info">
+                    <div class="info-card">
+                        <h3>Required Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Python, TensorFlow, PyTorch</li>
+                            <li><i class="fas fa-check-circle"></i> Statistical modeling</li>
+                            <li><i class="fas fa-check-circle"></i> Neural networks</li>
+                        ```html
+                    </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Job Opportunities</h3>
+                        <ul>
+                            <li><i class="fas fa-briefcase"></i> Machine Learning Engineer</li>
+                            <li><i class="fas fa-briefcase"></i> AI Developer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="career-content" id="devops">
+                <div class="career-info">
+                    <div class="info-card">
+                        <h3>Required Skills</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> CI/CD pipelines</li>
+                            <li><i class="fas fa-check-circle"></i> Cloud computing (AWS, Azure, GCP)</li>
+                            <li><i class="fas fa-check-circle"></i> Scripting (Bash, Python)</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Job Opportunities</h3>
+                        <ul>
+                            <li><i class="fas fa-briefcase"></i> DevOps Engineer</li>
+                            <li><i class="fas fa-briefcase"></i> Site Reliability Engineer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="consultation" id="consultation">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Video Consultation</h2>
+                <p>Connect with our AI career advisor for personalized guidance based on your skills and interests.</p>
+            </div>
+            <div class="consultation-container">
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <div class="video-img">
+                            <img src="videocall.png" height="212px" width="456px" alt="Video Call">
+                        </div>
+                    </div>
+                    <div class="video-controls">
+                        <button title="Mute"><i class="fas fa-microphone"></i></button>
+                        <button title="Turn Off Video"><i class="fas fa-video"></i></button>
+                        <button title="End Call"><i class="fas fa-phone"></i></button>
+                    </div>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-messages">
+                        <div class="message incoming">
+                            <div class="message-content">
+                                Hello! I'm your AI career advisor. How can I assist you today?
+                            </div>
+                        </div>
+                        <div class="message outgoing">
+                            <div class="message-content">
+                                I'm interested in tech careers but not sure which path to take.
+                            </div>
+                        </div>
+                        <div class="message incoming">
+                            <div class="message-content">
+                                I can help with that! Let's start by understanding your interests and skills. Do you enjoy problem-solving, designing interfaces, working with data, or building systems?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message here..." aria-label="Chat input">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <div class="section-title">
+                <h2>Personalized Learning Roadmaps</h2>
+                <p>Step-by-step guidance to acquire the skills needed for your chosen career path</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Foundation Skills</h3>
+                        <p>Begin with core programming concepts, data structures, and basic algorithms that form the foundation of any tech career.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Specialized Knowledge</h3>
+                        <p>Develop expertise in specific technologies relevant to your chosen career path.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Project Building</h3>
+                        <p>Create practical projects to apply your skills and build a portfolio that demonstrates your capabilities.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Advanced Concepts</h3>
+                        <p>Deepen your knowledge with advanced topics and specialized frameworks relevant to your field.</p>
+                    ```html
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Professional Development</h3>
+                        <p>Prepare for your career with interview preparation, resume building, and industry networking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">E-books</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#"> FAQs</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 CareerAI. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <div class="messaging-service" id="messagingService">
+        <div class="messaging-header">
+            <h3>Messages</h3>
+            <button id="closeMessaging" style="background: none; border: none; color: white; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="messaging-body" id="messagingBody">
+            <div class="message incoming">
+                <div class="message-content">Hello! How can I assist you today?</div>
+            </div>
+        </div>
+        <div class="messaging-footer">
+            <div class="message-input">
+                <textarea placeholder="Type a message..."></textarea>
+            </div>
+            <button class="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.career-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.career-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.career-content').forEach(content => content.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const videos = document.querySelectorAll(".video-wrapper video");
+            let currentIndex = 0;
+
+            videos.forEach(video => {
+                video.addEventListener("ended", () => {
+                    videos[currentIndex].classList.remove("active");
+                    currentIndex = (currentIndex + 1) % videos.length;
+                    videos[currentIndex].classList.add("active");
+                    videos[currentIndex].play();
+                });
+            });
+
+            videos[currentIndex].play();
+        });
+
+        let careerPaths = [
+            "Become a Data Scientist",
+            "Master AI & Machine Learning",
+            "Learn Full-Stack Development",
+            "Start a Cybersecurity Career",
+            "Excel in Cloud Computing",
+            "Get into DevOps & Automation"
+        ];
+
+        let textElement = document.getElementById("text");
+        let index = 0, charIndex = 0;
+        let removing = false;
+
+        function typingEffect() {
+            let currentText = careerPaths[index];
+
+            if (!removing && charIndex < currentText.length) {
+                textElement.textContent += currentText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typingEffect, 100);
+            } else if (removing && charIndex >= 0) {
+                textElement.textContent = currentText.substring(0, charIndex);
+                charIndex--;
+                setTimeout(typingEffect, 50);
+            } else {
+                removing = !removing;
+                if (!removing) {
+                    index = (index + 1) % careerPaths.length;
+                }
+                setTimeout(typingEffect, 1000);
+            }
+        }
+
+        typingEffect();
+
+        // Messaging Service Functionality
+        const messagingService = document.getElementById('messagingService');
+        const closeMessaging = document.getElementById('closeMessaging');
+        const sendBtn = document.querySelector('.send-btn');
+        const messagingBody = document.getElementById('messagingBody');
+
+        // Show messaging service
+        document.querySelector('.floating-logo').addEventListener('click', () => {
+            messagingService.style.display = 'block';
+        });
+
+        // Close messaging service
+        closeMessaging.addEventListener('click', () => {
+            messagingService.style.display = 'none';
+        });
+
+        // Send message functionality
+        sendBtn.addEventListener('click', () => {
+            const messageInput = document.querySelector('.message-input textarea');
+            const messageText = messageInput.value.trim();
+
+            if (messageText) {
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message', 'outgoing');
+                newMessage.innerHTML = `<div class="message-content">${messageText}</div>`;
+                messagingBody.appendChild(newMessage);
+                messageInput.value = '';
+
+                // Simulate incoming response
+                setTimeout(() => {
+                    const responseMessage = document.createElement('div');
+                    responseMessage.classList.add('message', 'incoming');
+                    responseMessage.innerHTML = `<div class="message-content">Thank you for your message!</div>`;
+                    messagingBody.appendChild(responseMessage);
+                    messagingBody.scrollTop = messagingBody.scrollHeight; // Scroll to the bottom
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+
+</html>

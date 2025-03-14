@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message); // Display success message
+            } else {
+                alert(data.error); // Display error message
+            }
+        }
+    </script>
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareerAI - Login</title>
+    <link rel="icon" href="logo1.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="login-style.css" />
+</head>
+
+<body>
+    <form onsubmit="handleLogin(event)">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="animation-container">
+        <div class="brand">
+            <i class="fas fa-brain"></i>
+            <span>CareerAI</span>
+        </div>
+
+        <div class="feature-text">
+            <h2>Discover Your Ideal Career Path</h2>
+            <p>Get personalized guidance and insights to navigate your professional journey with confidence.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> AI-powered career consultations</li>
+                <li><i class="fas fa-check-circle"></i> Personalized learning roadmaps</li>
+                <li><i class="fas fa-check-circle"></i> Industry insights and market trends</li>
+            </ul>
+        </div>
+
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <div class="login-wrapper">
+        <div class="container">
+            <div class="heading">Sign In to CareerAI</div>
+            <form id="loginForm" class="form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input required class="input" type="email" name="email" id="email" placeholder="Email address" />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input required class="input" type="password" name="password" id="password"
+                        placeholder="Password" />
+                </div>
+                <div class="forgot-password"><a href="#">Forgot Password?</a></div>
+                <button type="submit" class="login-button">Sign In</button>
+            </form>
+
+            <div class="divider">or continue with</div>
+
+            <div class="social-account-container">
+                <div class="social-accounts">
+                    <button class="social-button google">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button class="social-button apple">
+                        <i class="fab fa-apple"></i>
+                    </button>
+                    <button class="social-button twitter">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="#">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Basic validation
+            if (!email || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Successful submission - redirect
+            console.log('Login successful!');
+            window.location.href = 'TypingPage/index.html';
+        });
+
+        // Optional: Add animation for the circles to make them more dynamic
+        const circles = document.querySelectorAll('.circle');
+        circles.forEach((circle, index) => {
+            // Give each circle a different animation
+            circle.style.animationDelay = `${index * 2}s`;
+        });
+    </script>
+</body>
+
+</html>
